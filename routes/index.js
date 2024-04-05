@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
             const maxcount = row[0].maxcount; //전체 게시글 수   
             let limit = ` limit ${offset} , ${maxlist}`;  
 
-            sql = `select * from ndboard where 1 ${search} order by orNum desc, grNum asc ${limit}`;
+            sql = `select * from ndboard where 1 ${search} order by num desc ${limit}`;
             conn.query(sql, (err, row, fields) => {
                if(err)
                    console.log(err);
@@ -153,7 +153,7 @@ router.post("/write/imginsert", upload.single("img"), async(req, res, next)=>{
 router.get("/view/:num", (req, res)=>{
    const { num } = req.params;
    const sql1 = "select * from ndboard where num = ?";
-   const sql2 = "select * from ndboard_comment where ndboard_num = ?"
+   const sql2 = "select * from ndboard_comment where ndboardNum = ?"
    conn.query( sql1, [num], (err, row, fields)=> {
      if(err) {
         console.log(err);
@@ -380,12 +380,12 @@ router.get("/rewrite/:num", (req, res)=>{
 router.route("/comment_write")
     .post(async(req, res) => {
          const sql1 = "insert into ndboard_comment "+
-         "(ndboard_num, username, userpass, userid, comment)"+
+         "(ndboardNum, username, userpass, userid, comment)"+
          "values (?,?,?,?,?)";
          const sql2 = "update ndboard set memocount = memocount + 1 where num = ?";
          
          conn.query(sql1, [
-            req.body.ndboard_num,
+            req.body.ndboardNum,
             req.body.username,
             req.body.userpass,
             req.body.username,
@@ -396,7 +396,7 @@ router.route("/comment_write")
             res.send('0');
            }
            else{
-              conn.query( sql2, req.body.ndboard_num );
+              conn.query( sql2, req.body.ndboardNum );
               console.log('인서트 성공');
               res.send('1');  
            }

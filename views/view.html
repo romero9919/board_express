@@ -94,7 +94,7 @@
     </ul>
 </div>
 <form name="comment_form" id="comment_form" method="post">
-     <input type="hidden" name="ndboard_num" value="{{row[0].num}}" />
+     <input type="hidden" name="ndboardNum" value="{{row[0].num}}" />
         <div class="row mt-5">
             <div class="col-3">
                 <label>이름</label>
@@ -146,7 +146,7 @@
                     alert('성공적으로 등록되었습니다.');
                     location.reload();
                  }else{
-                    alert('문제가 발생했습니다. \n 관리자에게 문의해 보았자 입니다. 메롱~~');
+                    alert('문제가 발생했습니다. \n 관리자에게 문의 부탁드립니다.');
                  }
               },
               error: function(err){
